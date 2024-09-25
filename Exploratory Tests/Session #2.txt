@@ -1,0 +1,90 @@
+Fields:
+- id
+- title
+- completed
+- active
+- description
+
+/projects
+
+OPTIONS
+Sent an options request to validate that the documented options are exhaustive.
+
+GET
+Got a project with a specific id.
+Got all projects with a specific title.
+Got all projects with a specific active and completed status.
+Tried getting projects with a word from description; complete description required for filtering (don't we want to filter based on inclusion?).
+Got all projects in JSON & XML.
+
+HEAD
+Received headers in both JSON & XML.
+
+POST
+Posted an empty project (should we do this?).
+Tried posting an object with an id: received warning "Invalid Creation: Failed Validation: Not allowed to create with id", as expected.
+Posted an object with title and description with JSON ("Introduction", "Beginner project").
+Posted the same object as above with no issue with XML; it is possible to create projects with identical names and descriptions (should we do this?).
+Posted a completed project successfully (are we supposed to do this?).
+Posted a completed project with active status successfully (can it be?).
+
+
+
+/projects/:id
+
+OPTIONS
+Sent an options request to validate that the documented options are exhaustive.
+
+GET
+Got a project with a specific id with JSON and XML.
+Tried getting an object with a nonexistent id, and failed, as expected.
+
+HEAD
+Received headers in both JSON & XML.
+
+POST
+Posted an object with an existing id and modified description and status (PATCH should be used for updates instead).
+Tried posting an object with a nonexistent id, and failed, as expected.
+
+PUT
+Put an object with an existing id with a different title; resulted in replacing an object completely with an object containing specified fields and default values for the ones not specified (not mentioned in the documentation).
+Tried putting an object with a nonexistent id and failed, as expected.
+
+DELETE
+Deleted a project with a specific id.
+Tried getting it again, and failed to do so, as expected.
+
+
+
+/projects/:id/tasks
+
+OPTIONS
+Sent an options request to validate that the documented options are exhaustive.
+
+GET
+Got tasks ("todos") for an existing project with tasks.
+Did not get tasks for an existing project without tasks.
+Tried to get tasks for a non-existing project; received tasks for the project with id=1 (bug).
+
+HEAD
+Received headers in both JSON & XML.
+
+POST
+Tried posting with empty body; received a warning that "title" field is mandatory (undocumented).
+Posted successfully by providing a title value in the body.
+
+
+
+/projects/:id/tasks/:id
+
+OPTIONS
+Sent an options request to validate that the documented options are exhaustive.
+
+DELETE
+Deleted an existing tasks from an existing project.
+Tried deleting a non-existent task from an existing project and failed with 404 Not Found, as expected.
+Tried deleting an existing task from a non-existent project and received 400 Bad Request (unspecified error).
+Tried deleting a non-existent task from an existing project and failed with 404 Not Found, as expected.
+
+HEAD
+Headers content-type is text/html;charset=utf-8 (neither JSON nor XML).
