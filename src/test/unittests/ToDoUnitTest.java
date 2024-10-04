@@ -30,7 +30,7 @@ public class ToDoUnitTest {
 
     // Test that the server is up and ready for testing
     @BeforeAll
-    public static void testServer(){
+    public static void startServer(){
         int serverResponse = 502;
         try{
             URL serverUrl = new URL("http://localhost:4567");
@@ -45,6 +45,11 @@ public class ToDoUnitTest {
             e.printStackTrace();
             assertEquals(200, serverResponse);
         }
+    }
+
+    @AfterAll
+    public static void shutdownServer() {
+
     }
 
     // Create a todo before each test runs
@@ -115,12 +120,22 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testPostTodoWithTitle() {
+    public void testPostTodoWithTitleJson() {
+
+    }
+
+    @Test
+    public void testPostTodoWithTitleXml() {
 
     }
 
     @Test
     public void testGetTodoWithId() {
+
+    }
+
+    @Test
+    public void testGetTodoInvalidId() {
 
     }
 
@@ -170,7 +185,12 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testDeleteAlreadyDeletedTod() {
+    public void testDeleteAlreadyDeletedTodo() {
+
+    }
+
+    @Test
+    public void testDeleteTodoInvalidId() {
 
     }
 

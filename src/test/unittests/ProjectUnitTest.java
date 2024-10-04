@@ -2,6 +2,8 @@ package test.unittests;
 
 import io.restassured.RestAssured;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer.Random;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +22,7 @@ public class ProjectUnitTest {
 
     // Test that the server is up and ready for testing
     @BeforeAll
-    public static void testServer(){
+    public static void startServer(){
         int serverResponse = 502;
         try{
             URL serverUrl = new URL("http://localhost:4567");
@@ -35,5 +37,10 @@ public class ProjectUnitTest {
             e.printStackTrace();
             assertEquals(200, serverResponse);
         }
+    }
+
+    @AfterAll
+    public static void shutdownServer() {
+
     }
 }
