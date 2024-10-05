@@ -6,7 +6,6 @@ import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.restassured.http.ContentType;
-import io.restassured.http.Header;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.Random;
@@ -61,7 +60,12 @@ public class ToDoUnitTest {
         Map<String, String> testParams = new HashMap<>();
         testParams.put("title", taskTitle);
         testParams.put("description", taskDescription);
-        Response response = given().contentType("application/json").body(testParams).when().post("/todos");
+        Response response = given()
+                .contentType("application/json")
+                .body(testParams)
+                .when()
+                .post("/todos");
+
         assertEquals(201, response.getStatusCode());
         assertEquals(taskTitle, response.jsonPath().getString("title"));
         assertEquals(taskDescription, response.jsonPath().getString("description"));
@@ -73,12 +77,19 @@ public class ToDoUnitTest {
     // deletes the created todo after each test terminates
     @AfterEach
     public void deleteToDo(){
-        Response response = given().pathParam("id", testId).when().delete("/todos/{id}");
+        Response response = given()
+                .pathParam("id", testId)
+                .when()
+                .delete("/todos/{id}");
+
         assertEquals(200, response.getStatusCode());
     }
     @Test
     public void testGetDocs(){
-        Response response = given().when().get("/docs");
+        Response response = given()
+                .when()
+                .get("/docs");
+
         String title = response.xmlPath().getString("html.head.title");
         assertEquals(200, response.getStatusCode());
         assertTrue(title.contains("API Documentation"));
@@ -86,7 +97,10 @@ public class ToDoUnitTest {
 
     @Test
     public void testGetAllTodosJson() {
-        Response response = given().when().get("/todos");
+        Response response = given()
+                .when()
+                .get("/todos");
+
         List<Map<String, Object>> todos = response.jsonPath().getList("todos");
         boolean found = false;
         for (Map<String, Object> todo : todos) {
@@ -102,8 +116,11 @@ public class ToDoUnitTest {
 
     @Test
     public void testGetAllTodosXml(){
-        Response response = given().header("Accept", ContentType.XML).contentType(ContentType.XML).when().get("http://localhost:4567/todos");
-
+        Response response = given()
+                .header("Accept", ContentType.XML)
+                .contentType(ContentType.XML)
+                .when()
+                .get("http://localhost:4567/todos");
 
         List<String> titles = response.xmlPath().getList("todos.todo.title");
         boolean found = titles.contains(taskTitle);
@@ -116,7 +133,9 @@ public class ToDoUnitTest {
 
     @Test
     public void testGetAllTodosHeaders() {
-        Response response = given().when().head("/todos");
+        Response response = given()
+                .when()
+                .head("/todos");
 
         assertEquals(200, response.getStatusCode());
         assertNotEquals(0, response.getHeaders().size());
@@ -125,11 +144,13 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testGetAllTodosOptions(){
-        Response response = given().when().options("/todos");
-        Header header = response.getHeaders().get("Allow");
+    public void testGetAllTodosOptions() {
+        Response response = given()
+                .when()
+                .options("/todos");
+
         assertEquals(200, response.getStatusCode());
-        assertEquals("OPTIONS, GET, HEAD, POST", header.getValue());
+        assertEquals("OPTIONS, GET, HEAD, POST", response.getHeaders().get("Allow").getValue());
     }
 
     @Test
@@ -137,7 +158,11 @@ public class ToDoUnitTest {
         JSONObject object = new JSONObject();
         object.put("doneStatus", false);
         object.put("description", "test description");
-        Response response = given().body(object.toString()).when().post("http://localhost:4567/todos");
+        Response response = given()
+                .body(object.toString())
+                .when()
+                .post("http://localhost:4567/todos");
+
         assertEquals(400, response.getStatusCode());
         assertEquals("[title : field is mandatory]", response.jsonPath().getString("errorMessages"));
     }
@@ -148,7 +173,11 @@ public class ToDoUnitTest {
         object.put("title", "test title");
         object.put("doneStatus", false);
         object.put("description", "test description");
-        Response response = given().body(object.toString()).when().post("http://localhost:4567/todos");
+        Response response = given()
+                .body(object.toString())
+                .when()
+                .post("http://localhost:4567/todos");
+
         assertEquals(201, response.getStatusCode());
         assertEquals("test title", response.jsonPath().getString("title"));
         assertEquals("false", response.jsonPath().getString("doneStatus"));
@@ -168,7 +197,12 @@ public class ToDoUnitTest {
                 "<description>test description</description>" +
                 "</todo>";
 
-        Response response = given().header("Accept", ContentType.XML).contentType(ContentType.XML).body(xmlBody).when().post("http://localhost:4567/todos");
+        Response response = given()
+                .header("Accept", ContentType.XML)
+                .contentType(ContentType.XML)
+                .body(xmlBody)
+                .when()
+                .post("http://localhost:4567/todos");
 
         assertEquals(201, response.getStatusCode());
         assertEquals("test title", response.xmlPath().getString("todo.title"));
@@ -237,11 +271,27 @@ public class ToDoUnitTest {
 
     @Test
     public void testGetSpecificTodoHeaders() {
+        Response response = given()
+                .pathParam("id", testId)
+                .when()
+                .head("/todos/{id}");
+
+        assertEquals(200, response.getStatusCode());
+        assertNotEquals(0, response.getHeaders().size());
+        assertEquals("application/json", response.getHeaders().get("Content-Type").getValue());
+        assertEquals("chunked", response.getHeaders().get("Transfer-Encoding").getValue());
 
     }
 
     @Test
     public void testGetSpecificTodoOptions() {
+        Response response = given()
+                .pathParam("id", testId)
+                .when()
+                .options("/todos/{id}");
+
+        assertEquals(200, response.getStatusCode());
+        assertEquals("OPTIONS, GET, HEAD, POST, PUT, DELETE", response.getHeaders().get("Allow").getValue());
 
     }
 
@@ -256,22 +306,54 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testCreateToDoMalformedPayloadJson() {
+    public void testCreateTodoMalformedPayloadJson() {
 
     }
 
     @Test
-    public void testCreateToDoMalformedPayloadXml() {
+    public void testCreateTodoMalformedPayloadXml() {
 
     }
 
     @Test
     public void testDeleteAlreadyDeletedTodo() {
+        JSONObject object = new JSONObject();
+        object.put("title", "test title");
+        object.put("doneStatus", false);
+        object.put("description", "test description");
+        Response response = given()
+                .body(object.toString())
+                .when()
+                .post("http://localhost:4567/todos");
 
+        assertEquals(201, response.getStatusCode());
+        assertEquals("test title", response.jsonPath().getString("title"));
+        assertEquals("false", response.jsonPath().getString("doneStatus"));
+        assertEquals("test description", response.jsonPath().getString("description"));
+
+        // delete the newly created todo
+        int testId = response.jsonPath().getInt("id");
+        Response response2 = given().pathParam("id", testId).when().delete("/todos/{id}");
+        assertEquals(200, response2.getStatusCode());
+
+        // try deleting the same todo again
+        Response response3 = given().pathParam("id", testId).when().delete("/todos/{id}");
+        assertEquals(404, response3.getStatusCode());
+        String expectedMessage = "[Could not find any instances with todos/" + testId + "]";
+        assertEquals(expectedMessage, response3.jsonPath().getString("errorMessages"));
     }
 
     @Test
     public void testDeleteTodoInvalidId() {
+        int invalidId = -1;
+        Response response = given()
+                .pathParam("id", invalidId)
+                .when()
+                .delete("/todos/{id}");
+
+        assertEquals(404, response.getStatusCode());
+        String expectedMessage = "[Could not find any instances with todos/" + invalidId + "]";
+        assertEquals(expectedMessage, response.jsonPath().getString("errorMessages"));
 
     }
 
