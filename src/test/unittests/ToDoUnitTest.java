@@ -186,7 +186,7 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testPostNoTitle() {
+    public void testPostTodoNoTitle() {
         JSONObject object = new JSONObject();
         object.put("doneStatus", false);
         object.put("description", "test description");
@@ -217,8 +217,12 @@ public class ToDoUnitTest {
 
         // delete the newly created todo
         int testId = response.jsonPath().getInt("id");
-        Response response2 = given().pathParam("id", testId).when().delete("/todos/{id}");
-        assertEquals(200, response2.getStatusCode());
+        Response responsePost = given()
+                .pathParam("id", testId)
+                .when()
+                .delete("/todos/{id}");
+
+        assertEquals(200, responsePost.getStatusCode());
     }
 
     @Test
@@ -399,7 +403,7 @@ public class ToDoUnitTest {
     public void testCreateTodoMalformedPayloadJson() {
         JSONObject object = new JSONObject();
         object.put("title", "test title");
-        object.put("done", false);  // should be doneStatus
+        object.put("done", false);  // should be doneStatus, not done
         object.put("description", "test description");
         Response response = given()
                 .body(object.toString())
@@ -414,7 +418,7 @@ public class ToDoUnitTest {
     public void testCreateTodoMalformedPayloadXml() {
         String xmlBody = "<todo>" +
                 "<title>test title</title>" +
-                "<done>false</done>" +
+                "<done>false</done>" +  // should be doneStatus, not done
                 "<description>test description</description>" +
                 "</todo>";
 
