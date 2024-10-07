@@ -1,4 +1,4 @@
-package test.unittests;
+package test.unitTests;
 
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
@@ -19,7 +19,7 @@ import org.json.JSONObject;
 
 // Run unit tests in a random order
 @TestMethodOrder(Random.class)
-public class ToDoUnitTest {
+public class TodoUnitTest {
     private int testId;
     private final String taskTitle = "Title Todo";
     private final String taskDescription = "Description of todo";

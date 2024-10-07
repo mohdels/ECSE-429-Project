@@ -1,4 +1,4 @@
-package test.unittests;
+package test.unitTests;
 
 import io.restassured.RestAssured;
 import static org.junit.jupiter.api.Assertions.*;
