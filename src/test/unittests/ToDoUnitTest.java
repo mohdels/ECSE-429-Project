@@ -376,8 +376,10 @@ public class ToDoUnitTest {
         assertEquals(expectedMessage, responsePost.jsonPath().getString("errorMessages"));
     }
 
+    // Bug:
+    // Test shows expected behavior failing: test fails because PUT, unexpectedly, resets the doneStatus and description fields, even though we did not change them
     @Test
-    public void testUpdateTodoPut() {
+    public void testUpdateTodoPutFail() {
         JSONObject updatedObject = new JSONObject();
         updatedObject.put("title", "updated test title - put");
 
@@ -392,8 +394,28 @@ public class ToDoUnitTest {
         assertEquals(taskDescription, responsePut.jsonPath().getString("description"));
     }
 
+    // Bug
+    // Test shows actual behavior working: the doneStatus and description fields are reset
     @Test
-    public void testUpdateTodoPutNoTitle() {
+    public void testUpdateTodoPutPass() {
+        JSONObject updatedObject = new JSONObject();
+        updatedObject.put("title", "updated test title - put");
+
+        Response responsePut = given()
+                .body(updatedObject.toString())
+                .when()
+                .put("/todos/" + testId);
+
+        assertEquals(200, responsePut.getStatusCode());
+        assertEquals("updated test title - put", responsePut.jsonPath().getString("title"));
+        assertEquals("false", responsePut.jsonPath().getString("doneStatus"));
+        assertEquals("", responsePut.jsonPath().getString("description"));
+    }
+
+    // Bug
+    // Test shows expected behavior failing: the todo instance should be updated, so response code should be 200, and title and doneStatus fields should remain unchanged
+    @Test
+    public void testUpdateTodoPutNoTitleFail() {
         JSONObject updatedObject = new JSONObject();
         updatedObject.put("description", "updated test description - put");
 
@@ -408,6 +430,22 @@ public class ToDoUnitTest {
         assertEquals(doneStatus.toString(), responsePut.jsonPath().getString("doneStatus"));
     }
 
+    // Bug
+    // Test shows actual behavior passing: an error message is raised, stating that the title field is mandatory.
+    @Test
+    public void testUpdateTodoPutNoTitlePass() {
+        JSONObject updatedObject = new JSONObject();
+        updatedObject.put("description", "updated test description - put");
+
+        Response responsePut = given()
+                .body(updatedObject.toString())
+                .when()
+                .put("/todos/" + testId);
+
+        assertEquals(400, responsePut.getStatusCode());
+        assertEquals("[title : field is mandatory]", responsePut.jsonPath().getString("errorMessages"));
+    }
+
     @Test
     public void testUpdateTodoPutInvalidId() {
         int invalidId = -1;
@@ -417,10 +455,10 @@ public class ToDoUnitTest {
         Response responsePut = given()
                 .body(updatedObject.toString())
                 .when()
-                .post("/todos/" + invalidId);
+                .put("/todos/" + invalidId);
 
         assertEquals(404, responsePut.getStatusCode());
-        String expectedMessage = "[No such todo entity instance with GUID or ID " + invalidId + " found]";
+        String expectedMessage = "[Invalid GUID for " + invalidId + " entity todo]";
         assertEquals(expectedMessage, responsePut.jsonPath().getString("errorMessages"));
     }
 
