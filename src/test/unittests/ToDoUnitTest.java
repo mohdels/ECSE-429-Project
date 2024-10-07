@@ -2,6 +2,7 @@ package test.unittests;
 
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
+import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.restassured.http.ContentType;
@@ -9,7 +10,6 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.Random;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -24,32 +24,23 @@ public class ToDoUnitTest {
     private final String taskTitle = "Title Todo";
     private final String taskDescription = "Description of todo";
     private final Boolean doneStatus = false;
+    public static Process process;
 
     @BeforeAll
     public static void setup() throws Exception {
         // To run the api
-        ProcessBuilder processBuilder;
-        String os = System.getProperty("os.name");
-        if (os.toLowerCase().contains("windows")) {
-            processBuilder = new ProcessBuilder(
-                    "cmd.exe", "/c", "java -jar ..\\..\\..\\runTodoManagerRestAPI-1.5.5.jar");
-        }
-        else {
-            processBuilder = new ProcessBuilder(
-                    "sh", "-c", "java -jar ../../../runTodoManagerRestAPI-1.5.5.jar");
-        }
-
         try {
-            processBuilder.start();
-            Thread.sleep(1000);
-        } catch (IOException e) {
-            System.out.println("Server ain't running duh");
+            process = Runtime.getRuntime().exec("java -jar runTodoManagerRestAPI-1.5.5.jar");
+            sleep(500); // to give time for the api to run
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        // sets the base URI for all HTTP requests
         RestAssured.baseURI = "http://localhost:4567";
 
         // To test that the api is up and ready for testing
-        int serverResponse = 502;
+        int serverResponse = 404; // to indicate that the api is not running
         try{
             URL serverUrl = new URL("http://localhost:4567");
             HttpURLConnection serverConnection = (HttpURLConnection) serverUrl.openConnection();
@@ -96,10 +87,12 @@ public class ToDoUnitTest {
         assertEquals(200, response.getStatusCode());
     }
 
+    // Shutdown the api after all tests run
     @AfterAll
     public static void shutdownServer() {
         try {
-            given().when().get("/shutdown");
+            process.destroy();
+            sleep(500);
         }
         catch (Exception ignored) {}
     }
@@ -336,7 +329,7 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testAmendTodoPost() {
+    public void testUpdateTodoPost() {
         JSONObject updatedObject = new JSONObject();
         updatedObject.put("title", "updated test title - post");
 
@@ -352,7 +345,23 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testAmendTodoPostInvalidId() {
+    public void testUpdateTodoPostNoTitle() {
+        JSONObject updatedObject = new JSONObject();
+        updatedObject.put("description", "updated test description - post");
+
+        Response responsePost = given()
+                .body(updatedObject.toString())
+                .when()
+                .post("/todos/" + testId);
+
+        assertEquals(200, responsePost.getStatusCode());
+        assertEquals("updated test description - post", responsePost.jsonPath().getString("description"));
+        assertEquals(taskTitle, responsePost.jsonPath().getString("title"));
+        assertEquals(doneStatus.toString(), responsePost.jsonPath().getString("doneStatus"));
+    }
+
+    @Test
+    public void testUpdateTodoPostInvalidId() {
         int invalidId = -1;
         JSONObject updatedObject = new JSONObject();
         updatedObject.put("title", "updated test title - post");
@@ -368,7 +377,7 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testAmendTodoPut() {
+    public void testUpdateTodoPut() {
         JSONObject updatedObject = new JSONObject();
         updatedObject.put("title", "updated test title - put");
 
@@ -384,7 +393,23 @@ public class ToDoUnitTest {
     }
 
     @Test
-    public void testAmendTodoPutInvalidId() {
+    public void testUpdateTodoPutNoTitle() {
+        JSONObject updatedObject = new JSONObject();
+        updatedObject.put("description", "updated test description - put");
+
+        Response responsePut = given()
+                .body(updatedObject.toString())
+                .when()
+                .put("/todos/" + testId);
+
+        assertEquals(200, responsePut.getStatusCode());
+        assertEquals("updated test description - put", responsePut.jsonPath().getString("description"));
+        assertEquals(taskTitle, responsePut.jsonPath().getString("title"));
+        assertEquals(doneStatus.toString(), responsePut.jsonPath().getString("doneStatus"));
+    }
+
+    @Test
+    public void testUpdateTodoPutInvalidId() {
         int invalidId = -1;
         JSONObject updatedObject = new JSONObject();
         updatedObject.put("title", "updated test title - put");
