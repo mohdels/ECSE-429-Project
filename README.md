@@ -6,7 +6,7 @@
 [Anastasiia Nemyrovska](https://github.com/ananemyro) - 261114550
 
 ## Part A
-[Explorartory Testing](https://github.com/mohdels/ECSE-429-Project/tree/Todos/Exploratory%20Tests)
+[Exploratory Testing](https://github.com/mohdels/ECSE-429-Project/tree/Todos/Exploratory%20Tests)
 
 [Unit Tests](https://github.com/mohdels/ECSE-429-Project/tree/Todos/src/test/unitTests)
 
