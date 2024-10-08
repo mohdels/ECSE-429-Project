@@ -10,6 +10,6 @@
 
 [Unit Tests](https://github.com/mohdels/ECSE-429-Project/tree/Todos/src/test/unitTests)
 
-[Video of Unit Tests]([TBD](https://www.youtube.com/watch?v=1gXNgEQluVY))
+[Video of Unit Tests](https://www.youtube.com/watch?v=1gXNgEQluVY)
 
-[Report]([TBD](https://github.com/mohdels/ECSE-429-Project/blob/master/Part%20A%20Report.pdf))
+[Report](https://github.com/mohdels/ECSE-429-Project/blob/master/Part%20A%20Report.pdf)
