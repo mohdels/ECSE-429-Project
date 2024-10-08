@@ -1,0 +1,34 @@
+<component name="libraryTable">
+  <library name="springframework.restdocs.spring.restassured" type="repository">
+    <properties maven-id="org.springframework.restdocs:spring-restdocs-restassured:3.0.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/restdocs/spring-restdocs-restassured/3.0.0/spring-restdocs-restassured-3.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/restdocs/spring-restdocs-core/3.0.0/spring-restdocs-core-3.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.14.0/jackson-databind-2.14.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.14.0/jackson-annotations-2.14.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.14.0/jackson-core-2.14.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/rest-assured/rest-assured/5.2.1/rest-assured-5.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/groovy/groovy/4.0.1/groovy-4.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/groovy/groovy-xml/4.0.1/groovy-xml-4.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpclient/4.5.13/httpclient-4.5.13.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpcore/4.4.13/httpcore-4.4.13.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/commons-codec/commons-codec/1.11/commons-codec-1.11.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/httpcomponents/httpmime/4.5.13/httpmime-4.5.13.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest/2.1/hamcrest-2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/ccil/cowan/tagsoup/tagsoup/1.2.1/tagsoup-1.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/rest-assured/json-path/5.2.1/json-path-5.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/groovy/groovy-json/4.0.1/groovy-json-4.0.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/rest-assured/rest-assured-common/5.2.1/rest-assured-common-5.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/rest-assured/xml-path/5.2.1/xml-path-5.2.1.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.11/commons-lang3-3.11.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-web/6.0.0/spring-web-6.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-beans/6.0.0/spring-beans-6.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-core/6.0.0/spring-core-6.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jcl/6.0.0/spring-jcl-6.0.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/micrometer/micrometer-observation/1.10.0/micrometer-observation-1.10.0.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/io/micrometer/micrometer-commons/1.10.0/micrometer-commons-1.10.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
