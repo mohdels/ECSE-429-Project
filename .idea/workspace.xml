@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ECSE-429-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ECSE-429-Project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/ECSE-429-Project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/unitTests/ProjectUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/unitTests/ProjectUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,6 +21,12 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "mohdels"
+  }
+}]]></component>
   <component name="GitToolBoxStore">
     <option name="projectConfigVersion" value="5" />
     <option name="recentBranches">
@@ -42,6 +53,12 @@
       </RecentBranches>
     </option>
   </component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/mohdels/ECSE-429-Project.git",
+    "accountId": "b5fe6ac7-d997-4e70-ad27-f3cba53e72a1"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -54,21 +71,31 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.ProjectUnitTest (1).executor": "Run",
     "JUnit.ProjectUnitTest.executor": "Run",
     "JUnit.ToDoUnitTest.executor": "Run",
     "JUnit.ToDoUnitTest.testGetTodoInvalidId.executor": "Run",
     "JUnit.ToDoUnitTest.testGetTodoWithTitle.executor": "Run",
+    "JUnit.TodoUnitTest.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/anemy/IdeaProjects/json-20230227-javadoc.jar",
+    "last_opened_file_path": "/Users/mohammedelsayed/ECSE-429-Project",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+    "settings.editor.selected.configurable": "vcs.Git",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -76,7 +103,22 @@
       <recent name="C:\Users\anemy\IdeaProjects\ECSE-429-Project" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProjectUnitTest">
+  <component name="RunManager" selected="JUnit.ProjectUnitTest (1)">
+    <configuration name="ProjectUnitTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ECSE-429-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.unitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.unitTests" />
+      <option name="MAIN_CLASS_NAME" value="test.unitTests.ProjectUnitTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProjectUnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ECSE-429-Project" />
       <extension name="coverage">
@@ -108,37 +150,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ToDoUnitTest.testGetAllTodosOptions" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.unittests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.unittests" />
-      <option name="MAIN_CLASS_NAME" value="test.unittests.ToDoUnitTest" />
-      <option name="METHOD_NAME" value="testGetAllTodosOptions" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ToDoUnitTest.testGetTodoInvalidId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ECSE-429-Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.unittests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.unittests" />
-      <option name="MAIN_CLASS_NAME" value="test.unittests.ToDoUnitTest" />
-      <option name="METHOD_NAME" value="testGetTodoInvalidId" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="ToDoUnitTest.testGetTodoWithTitle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ECSE-429-Project" />
       <extension name="coverage">
@@ -155,15 +166,38 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="TodoUnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ECSE-429-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.unitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.unitTests" />
+      <option name="MAIN_CLASS_NAME" value="test.unitTests.TodoUnitTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProjectUnitTest" />
+        <item itemvalue="JUnit.ProjectUnitTest (1)" />
+        <item itemvalue="JUnit.TodoUnitTest" />
         <item itemvalue="JUnit.ToDoUnitTest" />
+        <item itemvalue="JUnit.ProjectUnitTest" />
         <item itemvalue="JUnit.ToDoUnitTest.testGetTodoWithTitle" />
-        <item itemvalue="JUnit.ToDoUnitTest.testGetTodoInvalidId" />
-        <item itemvalue="JUnit.ToDoUnitTest.testGetAllTodosOptions" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -173,8 +207,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1727113533429</updated>
+      <workItem from="1728415578088" duration="876000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ECSE_429_Project$ToDoUnitTest.ic" NAME="ToDoUnitTest Coverage Results" MODIFIED="1728318560093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

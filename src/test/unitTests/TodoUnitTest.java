@@ -24,7 +24,7 @@ public class TodoUnitTest {
     private final String taskTitle = "Title Todo";
     private final String taskDescription = "Description of todo";
     private final Boolean doneStatus = false;
-    public static Process process;
+    private static Process process;
 
     @BeforeAll
     public static void setup() throws Exception {
