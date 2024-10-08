@@ -2,6 +2,7 @@ package test.unitTests;
 
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
+import static java.lang.Thread.sleep;
 import static org.junit.jupiter.api.Assertions.*;
 
 import io.restassured.http.ContentType;
@@ -26,32 +27,23 @@ public class ProjectUnitTest {
     private final String partialProjectDescription = "Beginner";
     private final Boolean completed = false;
     private final Boolean active = false;
+    private static Process process;
 
     @BeforeAll
     public static void setup() throws Exception {
         // To run the api
-        ProcessBuilder processBuilder;
-        String os = System.getProperty("os.name");
-        if (os.toLowerCase().contains("windows")) {
-            processBuilder = new ProcessBuilder(
-                    "cmd.exe", "/c", "java -jar ..\\..\\..\\runTodoManagerRestAPI-1.5.5.jar");
-        }
-        else {
-            processBuilder = new ProcessBuilder(
-                    "sh", "-c", "java -jar ../../../runTodoManagerRestAPI-1.5.5.jar");
-        }
-
         try {
-            processBuilder.start();
-            Thread.sleep(1000);
-        } catch (IOException e) {
-            System.out.println("Server ain't running duh");
+            process = Runtime.getRuntime().exec("java -jar runTodoManagerRestAPI-1.5.5.jar");
+            sleep(500); // to give time for the api to run
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
+        // sets the base URI for all HTTP requests
         RestAssured.baseURI = "http://localhost:4567";
 
         // To test that the api is up and ready for testing
-        int serverResponse = 502;
+        int serverResponse = 404; // to indicate that the api is not running
         try{
             URL serverUrl = new URL("http://localhost:4567");
             HttpURLConnection serverConnection = (HttpURLConnection) serverUrl.openConnection();
