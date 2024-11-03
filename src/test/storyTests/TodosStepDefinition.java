@@ -64,13 +64,13 @@ public class TodosStepDefinition {
         }
     }
 
-//    @AfterAll
-//    public static void shutdownServer() {
-//        try {
-//            given().when().get("/shutdown");
-//        }
-//        catch (Exception ignored) {}
-//    }
+    @AfterAll
+    public static void shutdownServer() {
+        try {
+            given().when().get("/shutdown");
+        }
+        catch (Exception ignored) {}
+    }
 
     // ---------------------- Normal Flow ----------------------
 
@@ -83,18 +83,19 @@ public class TodosStepDefinition {
     }
 
     // Normal Flow: Verify response status code for successful creation
-    @Then("I should receive a response status code of {int} for normal flow")
+    @Then("I should receive a response status code of {int}")
     public void iShouldReceiveResponseStatusCodeForNormalFlow(int statusCode) {
         assertEquals(statusCode, response.getStatusCode());
+        //throw new io.cucumber.java.PendingException();
     }
 
     // Normal Flow: Verify response title and description for created todo
-    @And("the response should have a todo task with title: {string} and description: {string} for normal flow")
+    @And("the response should have a todo task with title: {string} and description: {string}")
     public void theResponseShouldHaveTodoWithTitleAndDescriptionForNormalFlow(String expectedTitle, String expectedDescription) {
         String actualTitle = response.jsonPath().getString("title");
         String actualDescription = response.jsonPath().getString("description");
-        assertEquals("Title does not match", expectedTitle, actualTitle);
-        assertEquals("Description does not match", expectedDescription, actualDescription);
+        assertEquals(expectedTitle, actualTitle);
+        assertEquals(expectedDescription, actualDescription);
     }
 
     // ---------------------- Alternate Flow ----------------------
@@ -108,24 +109,26 @@ public class TodosStepDefinition {
     }
 
     // Alternate Flow: Verify response status code for successful creation
-    @Then("I should receive a response status code of {int} for alternate flow")
+    @Then("I should receive a response status code of {int} - alternate flow")
     public void iShouldReceiveResponseStatusCodeForAlternateFlow(int statusCode) {
         assertEquals(statusCode, response.getStatusCode());
+       // throw new io.cucumber.java.PendingException();
     }
 
     // Alternate Flow: Verify response title and description (null or empty) for created todo
-    @And("the response should have a todo task with title: {string} and empty description for alternate flow")
+    @And("the response should have a todo task with title: {string} and empty description")
     public void theResponseShouldHaveTodoWithTitleAndEmptyDescriptionForAlternateFlow(String expectedTitle) {
         String actualTitle = response.jsonPath().getString("title");
         String actualDescription = response.jsonPath().getString("description");
-        assertEquals("Title does not match", expectedTitle, actualTitle);
-        assertNull("Description should be null or empty", actualDescription);
+        assertEquals(expectedTitle, actualTitle);
+        assertNull(actualDescription);
+        //throw new io.cucumber.java.PendingException();
     }
 
     // ---------------------- Error Flow ----------------------
 
     // Error Flow: Send POST request without a title to trigger validation error
-    @When("I send a POST request to {string} using title: \"\" and description: {string}")
+    @When("I send a POST request to {string} using title: \"\" and description: {string} - error flow")
     public void iSendAPostRequestWithoutTitle(String endpoint, String description) {
         String body = String.format("{\"title\":\"\", \"description\":\"%s\"}", description);
         request = RestAssured.given().header("Content-Type", "application/json").body(body);
@@ -133,16 +136,18 @@ public class TodosStepDefinition {
     }
 
     // Error Flow: Verify response status code for validation error
-    @Then("I should receive a response status code of {int} for error flow")
+    @Then("I should receive a response status code of {int} - error flow")
     public void iShouldReceiveResponseStatusCodeForErrorFlow(int statusCode) {
         assertEquals(statusCode, response.getStatusCode());
+        //throw new io.cucumber.java.PendingException();
     }
 
     // Error Flow: Validation for error message in the response
     @Then("the response should contain the error message {string}")
     public void theResponseShouldContainErrorMessage(String expectedErrorMessage) {
-        String actualErrorMessage = response.jsonPath().getString("error.message");
-        assertEquals("Error message does not match", expectedErrorMessage, actualErrorMessage);
+        String actualErrorMessage = response.jsonPath().getString("errorMessages");
+        assertEquals(expectedErrorMessage, actualErrorMessage);
+        //throw new io.cucumber.java.PendingException();
     }
 }
 
