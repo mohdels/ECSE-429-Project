@@ -88,6 +88,27 @@ public class TodosStepDefinition {
         assertEquals(expectedTitle1, actualTitle);
         assertEquals(expectedDoneStatus1, actualDoneStatus);
         assertEquals("", response.jsonPath().getString("todos[0].description"));
+
+        String expectedTitle2 = "file paperwork";
+        String expectedDoneStatus2 = "false";
+
+        // Send a GET request to check if the todo exists by ID
+        int id2 = 2;
+        Response response2 = given()
+                .pathParam("id", id2)
+                .when()
+                .get("/todos/{id}");
+
+        // Verify the response status code is 200 (exists)
+        assertEquals(200, response2.getStatusCode());
+
+        // Verify that the title and doneStatus match what is expected
+        String actualTitle2 = response2.jsonPath().getString("todos[0].title");
+        String actualDoneStatus2 = response2.jsonPath().getString("todos[0].doneStatus");
+
+        assertEquals(expectedTitle2, actualTitle2);
+        assertEquals(expectedDoneStatus2, actualDoneStatus2);
+        assertEquals("", response2.jsonPath().getString("todos[0].description"));
     }
 
     @AfterAll

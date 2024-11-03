@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Added gherkin and cucumber files structure">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/GetTodo.feature" afterDir="false" />
+    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="GetTodo test done + I hate cucumber 🥹">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -238,7 +236,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730660044817</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="GetTodo test done + I hate cucumber 🥹">
+      <option name="closed" value="true" />
+      <created>1730677066679</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730677066679</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -247,23 +253,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added gherkin and cucumber files structure" />
     <MESSAGE value="Create todo test passes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create todo test passes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java</url>
-          <line>75</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java</url>
-          <line>76</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="GetTodo test done + I hate cucumber " />
+    <option name="LAST_COMMIT_MESSAGE" value="GetTodo test done + I hate cucumber " />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ECSE_429_Project$ToDoUnitTest.ic" NAME="ToDoUnitTest Coverage Results" MODIFIED="1728318560093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
