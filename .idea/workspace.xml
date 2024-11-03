@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Added gherkin and cucumber files structure">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter_api.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter_engine.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_platform_commons.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_platform_engine.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_platform_suite_api.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/storyTests/CucumberTestRunner.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/ECSE-429-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ECSE-429-Project.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/io_cucumber_java.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/io_cucumber_java.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_jupiter.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/test.feature" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/storyTests/storyTest.java" beforeDir="false" />
-    </list>
+    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Added gherkin and cucumber files structure" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,40 +71,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "JUnit.All in ECSE-429-Project.executor": "Run",
-    "JUnit.CucumberTestRunner.executor": "Run",
-    "JUnit.ProjectUnitTest (1).executor": "Run",
-    "JUnit.ProjectUnitTest.executor": "Run",
-    "JUnit.ToDoUnitTest.executor": "Run",
-    "JUnit.ToDoUnitTest.testGetTodoInvalidId.executor": "Run",
-    "JUnit.ToDoUnitTest.testGetTodoWithTitle.executor": "Run",
-    "JUnit.TodoUnitTest.executor": "Run",
-    "JUnit.test.storyTests in ECSE-429-Project.executor": "Run",
-    "JUnit.test.unitTests in ECSE-429-Project.executor": "Run",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Todos",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mohammedelsayed/Desktop/Fall 2024/ECSE 429/ECSE-429-Project",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15938511",
-    "project.structure.side.proportion": "0.29865125",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;JUnit.All in ECSE-429-Project.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CucumberTestRunner.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProjectUnitTest (1).executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ProjectUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ToDoUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ToDoUnitTest.testGetTodoInvalidId.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ToDoUnitTest.testGetTodoWithTitle.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.TodoUnitTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.test.storyTests in ECSE-429-Project.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.test.unitTests in ECSE-429-Project.executor&quot;: &quot;Run&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Todos&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mohammedelsayed/Desktop/Fall 2024/ECSE 429/ECSE-429-Project&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15938511&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.29865125&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/resources/features" />
