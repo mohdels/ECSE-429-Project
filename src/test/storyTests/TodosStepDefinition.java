@@ -12,6 +12,8 @@ import io.restassured.specification.RequestSpecification;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static java.lang.Thread.sleep;
@@ -64,6 +66,30 @@ public class TodosStepDefinition {
         }
     }
 
+    @Given("the following todos exist in the system:")
+    public void theFollowingTodosExistInTheSystem(io.cucumber.datatable.DataTable dataTable) {
+        String expectedTitle1 = "scan paperwork";
+        String expectedDoneStatus1 = "false";
+
+        // Send a GET request to check if the todo exists by ID
+        int id = 1;
+        Response response = given()
+                .pathParam("id", id)
+                .when()
+                .get("/todos/{id}");
+
+        // Verify the response status code is 200 (exists)
+        assertEquals(200, response.getStatusCode());
+
+        // Verify that the title and doneStatus match what is expected
+        String actualTitle = response.jsonPath().getString("todos[0].title");
+        String actualDoneStatus = response.jsonPath().getString("todos[0].doneStatus");
+
+        assertEquals(expectedTitle1, actualTitle);
+        assertEquals(expectedDoneStatus1, actualDoneStatus);
+        assertEquals("", response.jsonPath().getString("todos[0].description"));
+    }
+
     @AfterAll
     public static void shutdownServer() {
         try {
@@ -72,9 +98,9 @@ public class TodosStepDefinition {
         catch (Exception ignored) {}
     }
 
+// -------------------------- CreateTodo.feature--------------------------
     // ---------------------- Normal Flow ----------------------
 
-    // Normal Flow: Sending a POST request with title and description
     @When("I send a POST request to {string} using title: {string} and description: {string}")
     public void iSendAPostRequestWithTitleAndDescription(String endpoint, String title, String description) {
         String body = String.format("{\"title\":\"%s\", \"description\":\"%s\"}", title, description);
@@ -82,14 +108,11 @@ public class TodosStepDefinition {
         response = request.post("/" + endpoint);
     }
 
-    // Normal Flow: Verify response status code for successful creation
     @Then("I should receive a response status code of {int}")
     public void iShouldReceiveResponseStatusCodeForNormalFlow(int statusCode) {
         assertEquals(statusCode, response.getStatusCode());
-        //throw new io.cucumber.java.PendingException();
     }
 
-    // Normal Flow: Verify response title and description for created todo
     @And("the response should have a todo task with title: {string} and description: {string}")
     public void theResponseShouldHaveTodoWithTitleAndDescriptionForNormalFlow(String expectedTitle, String expectedDescription) {
         String actualTitle = response.jsonPath().getString("title");
@@ -100,7 +123,6 @@ public class TodosStepDefinition {
 
     // ---------------------- Alternate Flow ----------------------
 
-    // Alternate Flow: Sending a POST request with title only (description is empty)
     @When("I send a POST request to {string} using title: {string} and empty description")
     public void iSendAPostRequestWithTitleOnly(String endpoint, String title) {
         String body = String.format("{\"title\":\"%s\", \"description\":null}", title);
@@ -108,46 +130,40 @@ public class TodosStepDefinition {
         response = request.post("/" + endpoint);
     }
 
-    // Alternate Flow: Verify response status code for successful creation
-    @Then("I should receive a response status code of {int} - alternate flow")
-    public void iShouldReceiveResponseStatusCodeForAlternateFlow(int statusCode) {
-        assertEquals(statusCode, response.getStatusCode());
-       // throw new io.cucumber.java.PendingException();
-    }
-
-    // Alternate Flow: Verify response title and description (null or empty) for created todo
     @And("the response should have a todo task with title: {string} and empty description")
     public void theResponseShouldHaveTodoWithTitleAndEmptyDescriptionForAlternateFlow(String expectedTitle) {
         String actualTitle = response.jsonPath().getString("title");
         String actualDescription = response.jsonPath().getString("description");
         assertEquals(expectedTitle, actualTitle);
         assertNull(actualDescription);
-        //throw new io.cucumber.java.PendingException();
     }
 
     // ---------------------- Error Flow ----------------------
-
-    // Error Flow: Send POST request without a title to trigger validation error
-    @When("I send a POST request to {string} using title: \"\" and description: {string} - error flow")
-    public void iSendAPostRequestWithoutTitle(String endpoint, String description) {
-        String body = String.format("{\"title\":\"\", \"description\":\"%s\"}", description);
-        request = RestAssured.given().header("Content-Type", "application/json").body(body);
-        response = request.post("/" + endpoint);
-    }
-
-    // Error Flow: Verify response status code for validation error
-    @Then("I should receive a response status code of {int} - error flow")
-    public void iShouldReceiveResponseStatusCodeForErrorFlow(int statusCode) {
-        assertEquals(statusCode, response.getStatusCode());
-        //throw new io.cucumber.java.PendingException();
-    }
-
-    // Error Flow: Validation for error message in the response
     @Then("the response should contain the error message {string}")
     public void theResponseShouldContainErrorMessage(String expectedErrorMessage) {
         String actualErrorMessage = response.jsonPath().getString("errorMessages");
         assertEquals(expectedErrorMessage, actualErrorMessage);
         //throw new io.cucumber.java.PendingException();
+    }
+
+// -------------------------- GetTodo.feature--------------------------
+    // ---------------------- Normal Flow ----------------------
+    @When("I send a GET request to {string}")
+    public void iSendAGetRequestTo(String endpoint) {
+        response = RestAssured.given().get("/" + endpoint);
+    }
+    // ---------------------- Alternate Flow ----------------------
+    @When("I send a GET request to {string} with title parameter {string}")
+    public void iSendAGetRequestWithTitleParameter(String endpoint, String title) {
+        response = RestAssured.given().queryParam("title", title).get("/" + endpoint);
+    }
+
+    @And("the response should contain a todo task with ID {string} and title {string}")
+    public void theResponseShouldContainTodoWithTitle(String expectedId, String expectedTitle) {
+        String actualId = response.jsonPath().getString("todos[0].id");
+        String actualTitle = response.jsonPath().getString("todos[0].title");
+        assertEquals(expectedId, actualId);
+        assertEquals(expectedTitle, actualTitle);
     }
 }
 

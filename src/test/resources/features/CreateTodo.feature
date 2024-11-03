@@ -18,7 +18,7 @@ Feature: Create New Todo
     # Alternate Flow
   Scenario Outline: Create a Todo task successfully using only a title
     When I send a POST request to "todos" using title: "title" and description: "description"
-    Then I should receive a response status code of 201 - alternate flow
+    Then I should receive a response status code of 201
     And the response should have a todo task with title: "title" and description: "description"
 
     Examples:
@@ -28,6 +28,6 @@ Feature: Create New Todo
 
     # Error Flow
   Scenario: Create a Todo task without a title
-    When I send a POST request to "todos" using title: "" and description: "description" - error flow
-    Then I should receive a response status code of 400 - error flow
+    When I send a POST request to "todos" using title: "" and description: "description"
+    Then I should receive a response status code of 400
     And the response should contain the error message "[Failed Validation: title : can not be empty]"
