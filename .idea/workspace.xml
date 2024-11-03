@@ -4,12 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/io_cucumber_java.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/test.feature" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/storyTests/storyTest.java" afterDir="false" />
+    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Added gherkin and cucumber files structure">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter_api.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_jupiter_engine.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_platform_commons.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_platform_engine.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/junit_platform_suite_api.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/storyTests/CucumberTestRunner.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/ECSE-429-Project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/ECSE-429-Project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/io_cucumber_java.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/io_cucumber_java.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/junit_jupiter.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/test.feature" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/storyTests/storyTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,6 +73,10 @@
     &quot;accountId&quot;: &quot;b5fe6ac7-d997-4e70-ad27-f3cba53e72a1&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/test.feature" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -76,12 +89,16 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Downloaded.Files.Path.Enabled": "false",
+    "JUnit.All in ECSE-429-Project.executor": "Run",
+    "JUnit.CucumberTestRunner.executor": "Run",
     "JUnit.ProjectUnitTest (1).executor": "Run",
     "JUnit.ProjectUnitTest.executor": "Run",
     "JUnit.ToDoUnitTest.executor": "Run",
     "JUnit.ToDoUnitTest.testGetTodoInvalidId.executor": "Run",
     "JUnit.ToDoUnitTest.testGetTodoWithTitle.executor": "Run",
     "JUnit.TodoUnitTest.executor": "Run",
+    "JUnit.test.storyTests in ECSE-429-Project.executor": "Run",
+    "JUnit.test.unitTests in ECSE-429-Project.executor": "Run",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "false",
     "Repository.Attach.Sources": "false",
@@ -97,8 +114,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Libraries",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
+    "project.structure.proportion": "0.15938511",
+    "project.structure.side.proportion": "0.29865125",
     "settings.editor.selected.configurable": "vcs.Git",
     "vue.rearranger.settings.migration": "true"
   }
@@ -109,7 +126,22 @@
       <recent name="C:\Users\anemy\IdeaProjects\ECSE-429-Project" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ProjectUnitTest (1)">
+  <component name="RunManager" selected="JUnit.CucumberTestRunner">
+    <configuration name="CucumberTestRunner" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ECSE-429-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.storyTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.storyTests" />
+      <option name="MAIN_CLASS_NAME" value="test.storyTests.CucumberTestRunner" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="ProjectUnitTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ECSE-429-Project" />
       <extension name="coverage">
@@ -121,53 +153,6 @@
       <option name="PACKAGE_NAME" value="test.unitTests" />
       <option name="MAIN_CLASS_NAME" value="test.unitTests.ProjectUnitTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ProjectUnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ECSE-429-Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.unittests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.unittests" />
-      <option name="MAIN_CLASS_NAME" value="test.unittests.ProjectUnitTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ToDoUnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ECSE-429-Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.unittests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.unittests" />
-      <option name="MAIN_CLASS_NAME" value="test.unittests.ToDoUnitTest" />
-      <option name="METHOD_NAME" value="" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ToDoUnitTest.testGetTodoWithTitle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ECSE-429-Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.unittests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.unittests" />
-      <option name="MAIN_CLASS_NAME" value="test.unittests.ToDoUnitTest" />
-      <option name="METHOD_NAME" value="testGetTodoWithTitle" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -187,13 +172,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="test.storyTests in ECSE-429-Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ECSE-429-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.storyTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.storyTests" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="test.unitTests in ECSE-429-Project" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ECSE-429-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.unitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.unitTests" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ProjectUnitTest (1)" />
+        <item itemvalue="JUnit.CucumberTestRunner" />
+        <item itemvalue="JUnit.test.storyTests in ECSE-429-Project" />
+        <item itemvalue="JUnit.test.unitTests in ECSE-429-Project" />
         <item itemvalue="JUnit.TodoUnitTest" />
-        <item itemvalue="JUnit.ToDoUnitTest" />
-        <item itemvalue="JUnit.ProjectUnitTest" />
-        <item itemvalue="JUnit.ToDoUnitTest.testGetTodoWithTitle" />
+        <item itemvalue="JUnit.ProjectUnitTest (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -214,12 +227,26 @@
       <option name="presentableId" value="Default" />
       <updated>1727113533429</updated>
       <workItem from="1728415578088" duration="876000" />
-      <workItem from="1730309753866" duration="3670000" />
+      <workItem from="1730309753866" duration="4949000" />
+      <workItem from="1730613953421" duration="13522000" />
     </task>
+    <task id="LOCAL-00001" summary="Added gherkin and cucumber files structure">
+      <option name="closed" value="true" />
+      <created>1730313489629</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1730313489629</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added gherkin and cucumber files structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added gherkin and cucumber files structure" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ECSE_429_Project$ToDoUnitTest.ic" NAME="ToDoUnitTest Coverage Results" MODIFIED="1728318560093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
