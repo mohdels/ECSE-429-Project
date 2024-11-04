@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Minor addition">
-      <change afterPath="$PROJECT_DIR$/src/test/resources/features/UpdateTodo.feature" afterDir="false" />
+    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="UpdateTodo done">
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/DeleteTodo.feature" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/resources/features/GetAllTodos.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/GetTodo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/GetTodo.feature" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,8 +67,13 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/DeleteTodo.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetAllTodos.feature" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetTodo.feature" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/test/resources/features/updateTodo.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/UpdateTodo.feature" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -255,7 +262,15 @@
       <option name="project" value="LOCAL" />
       <updated>1730677500904</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="UpdateTodo done">
+      <option name="closed" value="true" />
+      <created>1730754426248</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730754426248</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -266,18 +281,8 @@
     <MESSAGE value="Create todo test passes" />
     <MESSAGE value="GetTodo test done + I hate cucumber " />
     <MESSAGE value="Minor addition" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor addition" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java</url>
-          <line>131</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="UpdateTodo done" />
+    <option name="LAST_COMMIT_MESSAGE" value="UpdateTodo done" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ECSE_429_Project$ToDoUnitTest.ic" NAME="ToDoUnitTest Coverage Results" MODIFIED="1728318560093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">

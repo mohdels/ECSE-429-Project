@@ -1,4 +1,4 @@
-Feature: Get Todo Task
+Feature: Get a Specific Todo
   As a user, I want to retrieve a specific todo task so that I can view its details.
 
   Background:

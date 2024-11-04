@@ -1,7 +1,7 @@
 package test.storyTests;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.AfterAll;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -12,6 +12,8 @@ import io.restassured.specification.RequestSpecification;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static java.lang.Thread.sleep;
@@ -191,6 +193,60 @@ public class TodosStepDefinition {
         String body = String.format("{\"title\":\"%s\", \"description\":\"%s\"}", title, description);
         request = RestAssured.given().header("Content-Type", "application/json").body(body);
         response = request.put("/" + endpoint);
+    }
+// -------------------------- DeleteTodo.feature--------------------------
+    // ---------------------- Normal Flow ----------------------
+    @When("I send a DELETE request to {string}")
+    public void iSendADeleteRequestTo(String endpoint) {
+        response = RestAssured.given().delete("/" + endpoint);
+    }
+
+    // ---------------------- Alternate Flow ----------------------
+    @When("I send a POST request to {string} using title: {string} and description: {string} then delete the todo")
+    public void iSendAPostRequestToCreateTodoThenDelete(String endpoint, String title, String description) {
+        String body = String.format("{\"title\":\"%s\", \"description\":\"%s\"}", title, description);
+        request = RestAssured.given().header("Content-Type", "application/json").body(body);
+        response = request.post("/" + endpoint);
+
+        // Assuming the response contains the ID of the created Todo, extract it
+        String id = response.jsonPath().getString("id");
+
+        // Now send a DELETE request to delete this newly created Todo
+        response = RestAssured.given().delete("/todos/" + id);
+    }
+
+    @Then("the todo at {string} should be deleted")
+    public void theTodoShouldBeDeleted(String endpoint) {
+        response = RestAssured.given().get("/" + endpoint);
+        assertEquals(404, response.getStatusCode());
+    }
+
+// -------------------------- DeleteTodo.feature--------------------------
+    // ---------------------- Alternate Flow ----------------------
+    @When("I send a GET request to {string} using filter {string}")
+    public void iSendAGetRequestWithFilter(String endpoint, String filter) {
+        response = RestAssured.given().get("/" + endpoint + filter);
+    }
+
+    @Then("the response should contain a list of todos")
+    public void theResponseShouldContainAListOfTodos() {
+        List<Map<String, Object>> todos = response.jsonPath().getList("todos");
+        assertNotNull(todos);
+        assertFalse(todos.isEmpty());
+    }
+
+    @Then("the list should include todos with the following details:")
+    public void theListShouldIncludeTodosWithDetails(DataTable expectedTodos) {
+        List<Map<String, String>> expectedTodosList = expectedTodos.asMaps(String.class, String.class);
+        List<Map<String, Object>> actualTodosList = response.jsonPath().getList("todos");
+
+        assertEquals(expectedTodosList.size(), actualTodosList.size());
+
+        for (int x = 0; x < expectedTodosList.size(); x++){
+            assertEquals(expectedTodosList.get(x).get("id"), actualTodosList.get(x).get("id"));
+            assertEquals(expectedTodosList.get(x).get("title"), actualTodosList.get(x).get("title"));
+            assertEquals(expectedTodosList.get(x).get("title"), actualTodosList.get(x).get("title"));
+        }
     }
 }
 

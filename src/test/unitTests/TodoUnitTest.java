@@ -324,7 +324,7 @@ public class TodoUnitTest {
                 .options("/todos/{id}");
 
         assertEquals(200, response.getStatusCode());
-        assertEquals("OPTIONS, GET, HEAD, POST, PUT, DELETE", response.getHeaders().get("Allow").getValue());
+        assertEquals("OPTIONS, GET, HEAD,  , PUT, DELETE", response.getHeaders().get("Allow").getValue());
 
     }
 
