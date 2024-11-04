@@ -12,8 +12,6 @@ import io.restassured.specification.RequestSpecification;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
-import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 import static java.lang.Thread.sleep;
@@ -130,12 +128,12 @@ public class TodosStepDefinition {
     }
 
     @Then("I should receive a response status code of {int}")
-    public void iShouldReceiveResponseStatusCodeForNormalFlow(int statusCode) {
+    public void iShouldReceiveResponseStatusCode(int statusCode) {
         assertEquals(statusCode, response.getStatusCode());
     }
 
-    @And("the response should have a todo task with title: {string} and description: {string}")
-    public void theResponseShouldHaveTodoWithTitleAndDescriptionForNormalFlow(String expectedTitle, String expectedDescription) {
+    @Then("the response should have a todo task with title: {string} and description: {string}")
+    public void theResponseShouldHaveTodoWithTitleAndDescription(String expectedTitle, String expectedDescription) {
         String actualTitle = response.jsonPath().getString("title");
         String actualDescription = response.jsonPath().getString("description");
         assertEquals(expectedTitle, actualTitle);
@@ -151,7 +149,7 @@ public class TodosStepDefinition {
         response = request.post("/" + endpoint);
     }
 
-    @And("the response should have a todo task with title: {string} and empty description")
+    @Then("the response should have a todo task with title: {string} and empty description")
     public void theResponseShouldHaveTodoWithTitleAndEmptyDescriptionForAlternateFlow(String expectedTitle) {
         String actualTitle = response.jsonPath().getString("title");
         String actualDescription = response.jsonPath().getString("description");
@@ -164,7 +162,6 @@ public class TodosStepDefinition {
     public void theResponseShouldContainErrorMessage(String expectedErrorMessage) {
         String actualErrorMessage = response.jsonPath().getString("errorMessages");
         assertEquals(expectedErrorMessage, actualErrorMessage);
-        //throw new io.cucumber.java.PendingException();
     }
 
 // -------------------------- GetTodo.feature--------------------------
@@ -179,12 +176,21 @@ public class TodosStepDefinition {
         response = RestAssured.given().queryParam("title", title).get("/" + endpoint);
     }
 
-    @And("the response should contain a todo task with ID {string} and title {string}")
+    @Then("the response should contain a todo task with ID {string} and title {string}")
     public void theResponseShouldContainTodoWithTitle(String expectedId, String expectedTitle) {
         String actualId = response.jsonPath().getString("todos[0].id");
         String actualTitle = response.jsonPath().getString("todos[0].title");
         assertEquals(expectedId, actualId);
         assertEquals(expectedTitle, actualTitle);
+    }
+
+// -------------------------- UpdateTodo.feature--------------------------
+    // ---------------------- Normal Flow ----------------------
+    @When("I send a PUT request to {string} using title: {string} and description: {string}")
+    public void iSendAPutRequestToUpdateTodo(String endpoint, String title, String description) {
+        String body = String.format("{\"title\":\"%s\", \"description\":\"%s\"}", title, description);
+        request = RestAssured.given().header("Content-Type", "application/json").body(body);
+        response = request.put("/" + endpoint);
     }
 }
 

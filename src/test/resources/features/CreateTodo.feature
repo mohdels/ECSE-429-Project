@@ -4,7 +4,7 @@ Feature: Create New Todo
   Background:
     Given the service is running
 
-    # Normal Flow
+  # Normal Flow
   Scenario Outline: Create a Todo task successfully using a title and description
     When I send a POST request to "todos" using title: "title" and description: "description"
     Then I should receive a response status code of 201
@@ -12,10 +12,10 @@ Feature: Create New Todo
 
     Examples:
       | title    | description            |
-      | ToDo 1   | Description of ToDo 1  |
-      | ToDo 2   | Description of ToDo 2  |
+      | Todo 1   | Description of Todo 1  |
+      | Todo 2   | Description of Todo 2  |
 
-    # Alternate Flow
+  # Alternate Flow
   Scenario Outline: Create a Todo task successfully using only a title
     When I send a POST request to "todos" using title: "title" and description: "description"
     Then I should receive a response status code of 201
@@ -23,11 +23,11 @@ Feature: Create New Todo
 
     Examples:
       | title   | description  |
-      | ToDo 1  |              |
-      | ToDo 2  |              |
+      | Todo 1  |              |
+      | Todo 2  |              |
 
-    # Error Flow
-  Scenario: Create a Todo task without a title
+  # Error Flow
+  Scenario Outline: Create a Todo task without a title
     When I send a POST request to "todos" using title: "" and description: "description"
     Then I should receive a response status code of 400
     And the response should contain the error message "[Failed Validation: title : can not be empty]"
