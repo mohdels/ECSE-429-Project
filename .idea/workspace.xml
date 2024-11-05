@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Added gherkin and cucumber files structure">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" afterDir="false" />
+    <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Minor fix">
+      <change beforePath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +62,13 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/test/resources/features/test.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/DeleteTodo.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetAllTodos.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetTodo.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/UpdateTodo.feature" root0="SKIP_INSPECTION" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -86,6 +90,7 @@
     "JUnit.ToDoUnitTest.testGetTodoInvalidId.executor": "Run",
     "JUnit.ToDoUnitTest.testGetTodoWithTitle.executor": "Run",
     "JUnit.TodoUnitTest.executor": "Run",
+    "JUnit.TodoUnitTest.testGetTodoWithId.executor": "Debug",
     "JUnit.test.storyTests in ECSE-429-Project.executor": "Run",
     "JUnit.test.unitTests in ECSE-429-Project.executor": "Run",
     "Repository.Attach.Annotations": "false",
@@ -131,21 +136,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ProjectUnitTest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="ECSE-429-Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.unitTests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.unitTests" />
-      <option name="MAIN_CLASS_NAME" value="test.unitTests.ProjectUnitTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="TodoUnitTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ECSE-429-Project" />
       <extension name="coverage">
@@ -157,6 +147,22 @@
       <option name="PACKAGE_NAME" value="test.unitTests" />
       <option name="MAIN_CLASS_NAME" value="test.unitTests.TodoUnitTest" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TodoUnitTest.testGetTodoWithId" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="ECSE-429-Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.unitTests.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.unitTests" />
+      <option name="MAIN_CLASS_NAME" value="test.unitTests.TodoUnitTest" />
+      <option name="METHOD_NAME" value="testGetTodoWithId" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -192,10 +198,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.CucumberTestRunner" />
-        <item itemvalue="JUnit.test.storyTests in ECSE-429-Project" />
+        <item itemvalue="JUnit.TodoUnitTest.testGetTodoWithId" />
         <item itemvalue="JUnit.test.unitTests in ECSE-429-Project" />
+        <item itemvalue="JUnit.test.storyTests in ECSE-429-Project" />
         <item itemvalue="JUnit.TodoUnitTest" />
-        <item itemvalue="JUnit.ProjectUnitTest (1)" />
       </list>
     </recent_temporary>
   </component>
@@ -227,7 +233,55 @@
       <option name="project" value="LOCAL" />
       <updated>1730313489629</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Create todo test passes">
+      <option name="closed" value="true" />
+      <created>1730660044817</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1730660044817</updated>
+    </task>
+    <task id="LOCAL-00003" summary="GetTodo test done + I hate cucumber 🥹">
+      <option name="closed" value="true" />
+      <created>1730677066679</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1730677066679</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Minor addition">
+      <option name="closed" value="true" />
+      <created>1730677500904</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1730677500904</updated>
+    </task>
+    <task id="LOCAL-00005" summary="UpdateTodo done">
+      <option name="closed" value="true" />
+      <created>1730754426248</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730754426248</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Done 🥹">
+      <option name="closed" value="true" />
+      <created>1730761135935</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1730761135935</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Minor fix">
+      <option name="closed" value="true" />
+      <created>1730768079589</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730768079589</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +289,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added gherkin and cucumber files structure" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added gherkin and cucumber files structure" />
+    <MESSAGE value="Create todo test passes" />
+    <MESSAGE value="GetTodo test done + I hate cucumber " />
+    <MESSAGE value="Minor addition" />
+    <MESSAGE value="UpdateTodo done" />
+    <MESSAGE value="Done " />
+    <MESSAGE value="Minor fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor fix" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java</url>
+          <line>243</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ECSE_429_Project$ToDoUnitTest.ic" NAME="ToDoUnitTest Coverage Results" MODIFIED="1728318560093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
