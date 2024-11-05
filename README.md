@@ -13,3 +13,12 @@
 [Video of Unit Tests](https://www.youtube.com/watch?v=1gXNgEQluVY)
 
 [Report](https://github.com/mohdels/ECSE-429-Project/blob/master/Part%20A%20Report.pdf)
+
+## Part B
+[Feature Files](https://github.com/mohdels/ECSE-429-Project/tree/master/src/test/resources/features)
+
+[Step Definitions](https://github.com/mohdels/ECSE-429-Project/tree/master/src/test/storyTests)
+
+[Video of Step Definitions](TBD)
+
+[Report](TBD)
