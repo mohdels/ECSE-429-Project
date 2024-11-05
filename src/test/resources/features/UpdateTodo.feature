@@ -9,7 +9,7 @@ Feature: Update Existing Todo
       | 2  | file paperwork | false      |             |
 
   # Normal Flow
-  Scenario Outline: Update a Todo task's description successfully using PUT
+  Scenario Outline: Update a Todo task's title and description successfully using PUT
     When I send a PUT request to "todos/<ID>" using title: "title" and description: "description"
     Then I should receive a response status code of 200
     And the response should have a todo task with title: "title" and description: "description"
@@ -20,7 +20,7 @@ Feature: Update Existing Todo
       | 2  | Todo 2   | New description of Todo 2  |
 
   # Alternate Flow
-  Scenario Outline: Update a Todo task's description successfully using POST
+  Scenario Outline: Update a Todo task's title and description successfully using POST
     When I send a POST request to "todos/<ID>" using title: "title" and description: "description"
     Then I should receive a response status code of 200
     And the response should have a todo task with title: "title" and description: "description"
@@ -31,12 +31,12 @@ Feature: Update Existing Todo
       | 2  | Todo 2 POST  | New description of Todo 2 POST |
 
   # Error Flow
-  Scenario Outline: Update a Todo task's description with invalid ID using PUT
+  Scenario Outline: Update a Todo task's title and description with invalid ID using PUT
     When I send a PUT request to "todos/-1" using title: "title" and description: "description"
     Then I should receive a response status code of 404
     And the response should contain the error message "[Invalid GUID for -1 entity todo]"
 
     Examples:
-      | title    | description                |
-      | Todo 1   | New description of Todo 1  |
-      | Todo 2   | New description of Todo 2  |
+      | title         | description                     |
+      | Todo 1 Error  | New description of Todo 1 Error |
+      | Todo 2 Error  | New description of Todo 2 Error |

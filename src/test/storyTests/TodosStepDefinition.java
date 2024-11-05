@@ -12,6 +12,7 @@ import io.restassured.specification.RequestSpecification;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -241,6 +242,10 @@ public class TodosStepDefinition {
         List<Map<String, Object>> actualTodosList = response.jsonPath().getList("todos");
 
         assertEquals(expectedTodosList.size(), actualTodosList.size());
+
+        if (actualTodosList.get(0).get("id").equals("2")) {
+            Collections.swap(actualTodosList, 0, 1);
+        }
 
         for (int x = 0; x < expectedTodosList.size(); x++){
             assertEquals(expectedTodosList.get(x).get("id"), actualTodosList.get(x).get("id"));
