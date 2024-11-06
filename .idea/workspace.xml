@@ -5,7 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="400bf045-3646-4aff-b18b-927f764356bb" name="Changes" comment="Minor fix">
-      <change beforePath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/unitTests/TodoUnitTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/CreateProject.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/CreateProject.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/DeleteProject.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/DeleteProject.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/FilterProjects.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/GetProject.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/UpdateProject.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/UpdateProject.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/features/ViewProjects.feature" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/resources/features/GetAllProjects.feature" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/storyTests/ProjectsStepDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/storyTests/ProjectsStepDefinition.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,10 +68,15 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/CreateProject.feature" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/CreateTodo.feature" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/DeleteProject.feature" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/DeleteTodo.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetAllProjects.feature" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetAllTodos.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetProject.feature" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/GetTodo.feature" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/test/resources/features/UpdateProject.feature" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/test/resources/features/UpdateTodo.feature" root0="SKIP_INSPECTION" />
   </component>
   <component name="ProblemsViewState">
@@ -98,7 +110,7 @@
     "Repository.Attach.Sources": "false",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Todos",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/mohammedelsayed/Desktop/Fall 2024/ECSE 429/ECSE-429-Project",
@@ -301,9 +313,24 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/storyTests/TodosStepDefinition.java</url>
-          <line>243</line>
-          <option name="timeStamp" value="16" />
+          <url>file://$PROJECT_DIR$/src/test/storyTests/ProjectsStepDefinition.java</url>
+          <line>127</line>
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/storyTests/ProjectsStepDefinition.java</url>
+          <line>121</line>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/storyTests/ProjectsStepDefinition.java</url>
+          <line>134</line>
+          <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/storyTests/ProjectsStepDefinition.java</url>
+          <line>153</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

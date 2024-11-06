@@ -61,7 +61,7 @@ public class TodosStepDefinition {
     private void startService() {
         try {
             process = Runtime.getRuntime().exec("java -jar runTodoManagerRestAPI-1.5.5.jar");
-            sleep(500); // to give time for the api to run
+            sleep(750); // to give time for the api to run
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -222,7 +222,7 @@ public class TodosStepDefinition {
         assertEquals(404, response.getStatusCode());
     }
 
-// -------------------------- DeleteTodo.feature--------------------------
+// -------------------------- GetAllTodos.feature--------------------------
     // ---------------------- Alternate Flow ----------------------
     @When("I send a GET request to {string} using filter {string}")
     public void iSendAGetRequestWithFilter(String endpoint, String filter) {

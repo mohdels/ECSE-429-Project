@@ -6,8 +6,8 @@ Feature: Create a New Project
 
   # Normal Flow
   Scenario Outline: Create a new project successfully with title and active status
-    When I send a POST request to "/projects" using title: "<title>" and active status: "<active>"
-    Then I should receive a response status code of 201
+    When I send a POST request to "/projects" using title: "<title>" and active status: "<active>" to create a project
+    Then We should receive a response status code of 201
     And the response should contain a project with title: "<title>" and active status: "<active>"
 
     Examples:
@@ -18,11 +18,15 @@ Feature: Create a New Project
   # Alternate Flow
   Scenario: Create a new project with no fields provided
     When I send a POST request to "/projects" with no fields in the body
-    Then I should receive a response status code of 201
+    Then We should receive a response status code of 201
     And the response should contain a project with default values for all fields
 
+    Examples:
+      | title   | description  |
+      |         |              |
+      |         |              |
   # Error Flow
   Scenario: Create a new project with invalid data type
     When I send a POST request to "/projects" using an active status: "notABoolean"
-    Then I should receive a response status code of 400
-    And the response should contain the error message "[Failed Validation: active should be BOOLEAN]"
+    Then We should receive a response status code of 400
+    And the response should contain the following error message: "Failed Validation: active should be BOOLEAN"
