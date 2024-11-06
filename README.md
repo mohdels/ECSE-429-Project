@@ -21,4 +21,4 @@
 
 [Video of Step Definitions](https://youtu.be/07mXChet4q4)
 
-[Report](TBD)
+[Report](https://github.com/mohdels/ECSE-429-Project/blob/master/Part%20B%20Report.pdf)
