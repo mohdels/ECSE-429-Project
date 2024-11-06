@@ -19,6 +19,6 @@
 
 [Step Definitions](https://github.com/mohdels/ECSE-429-Project/tree/master/src/test/storyTests)
 
-[Video of Step Definitions](TBD)
+[Video of Step Definitions](https://youtu.be/07mXChet4q4)
 
 [Report](TBD)
