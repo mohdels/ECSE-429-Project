@@ -33,7 +33,7 @@ public class TodoUnitTest {
 
     @BeforeAll
     public static void setup() throws Exception {
-        String csvFile = "performance_results.csv";
+        String csvFile = "todo_performance_results.csv";
         try (FileWriter writer = new FileWriter(csvFile)) {
             writer.write("operation,numObjects,duration,cpuUsage,memoryUsage\n"); // Write the header line
         } catch (IOException e) {
@@ -77,7 +77,7 @@ public class TodoUnitTest {
                 .when()
                 .post("/todos");
         long endTime = System.currentTimeMillis();
-        System.out.println("deleteToDo duration: " + (endTime - startTime) + "ms");
+        System.out.println("createToDo duration: " + (endTime - startTime) + "ms");
 
         assertEquals(201, response.getStatusCode());
         assertEquals(randomTodo.getString("title"), response.jsonPath().getString("title"));
@@ -346,13 +346,13 @@ public class TodoUnitTest {
     @Test
     public void testUpdateTodoPost() {
         int[] objectCounts = {1, 10, 100, 1000};
-        String csvFile = "performance_results.csv";
+        String csvFile = "todo_performance_results.csv";
 
         for (int numObjects : objectCounts) {
             long startTime = System.currentTimeMillis();
             long endTime = startTime + 1000; // 1-second sampling duration
-            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
-            long initialMemoryUsage = getMemoryUsage();
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             for (int i = 0; i < numObjects; i++) {
                 JSONObject updatedTodo = RandomDataGenerator.generateTodo();
@@ -365,8 +365,8 @@ public class TodoUnitTest {
 
             long operationEndTime = System.currentTimeMillis();
             long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
-            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
-            long finalMemoryUsage = getMemoryUsage();
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             CsvWriter.writeResults(
                     csvFile,
@@ -434,13 +434,13 @@ public class TodoUnitTest {
     @Test
     public void testUpdateTodoPutPass() {
         int[] objectCounts = {1, 10, 100, 1000};
-        String csvFile = "performance_results.csv";
+        String csvFile = "todo_performance_results.csv";
 
         for (int numObjects : objectCounts) {
             long startTime = System.currentTimeMillis();
             long endTime = startTime + 1000; // 1-second sampling duration
-            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
-            long initialMemoryUsage = getMemoryUsage();
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             for (int i = 0; i < numObjects; i++) {
                 JSONObject updatedTodo = RandomDataGenerator.generateTodo();
@@ -453,8 +453,8 @@ public class TodoUnitTest {
 
             long operationEndTime = System.currentTimeMillis();
             long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
-            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
-            long finalMemoryUsage = getMemoryUsage();
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             CsvWriter.writeResults(
                     csvFile,
@@ -604,13 +604,13 @@ public class TodoUnitTest {
     @Test
     public void testCreateMultipleTodos() {
         int[] objectCounts = {1, 10, 100, 1000};
-        String csvFile = "performance_results.csv";
+        String csvFile = "todo_performance_results.csv";
 
         for (int numObjects : objectCounts) {
             long startTime = System.currentTimeMillis();
             long endTime = startTime + 1000; // 1-second sampling duration
-            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
-            long initialMemoryUsage = getMemoryUsage();
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             for (int i = 0; i < numObjects; i++) {
                 JSONObject todo = RandomDataGenerator.generateTodo();
@@ -623,8 +623,8 @@ public class TodoUnitTest {
 
             long operationEndTime = System.currentTimeMillis();
             long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
-            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
-            long finalMemoryUsage = getMemoryUsage();
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             CsvWriter.writeResults(
                     csvFile,
@@ -640,7 +640,7 @@ public class TodoUnitTest {
     @Test
     public void testDeleteMultipleTodos() {
         int[] objectCounts = {1, 10, 100, 1000};
-        String csvFile = "performance_results.csv";
+        String csvFile = "todo_performance_results.csv";
 
         for (int numObjects : objectCounts) {
             int[] createdIds = new int[numObjects];
@@ -656,8 +656,8 @@ public class TodoUnitTest {
 
             long startTime = System.currentTimeMillis();
             long endTime = startTime + 1000; // 1-second sampling duration
-            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
-            long initialMemoryUsage = getMemoryUsage();
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             for (int id : createdIds) {
                 Response response = given()
@@ -669,8 +669,8 @@ public class TodoUnitTest {
 
             long operationEndTime = System.currentTimeMillis();
             long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
-            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
-            long finalMemoryUsage = getMemoryUsage();
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
 
             CsvWriter.writeResults(
                     csvFile,
@@ -682,30 +682,5 @@ public class TodoUnitTest {
             );
         }
     }
-
-    // Utility methods
-
-    public double getAverageCpuUsage(long startTime, long endTime) {
-        OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
-        double totalCpu = 0;
-        int samples = 0;
-
-        while (System.currentTimeMillis() < endTime) {
-            totalCpu += osBean.getSystemCpuLoad();
-            samples++;
-            try {
-                Thread.sleep(10); // Sampling interval (10ms)
-            } catch (InterruptedException ignored) {}
-        }
-
-        return (samples > 0) ? (totalCpu / samples) * 100 : 0.0;
-    }
-
-
-    public long getMemoryUsage() {
-        Runtime runtime = Runtime.getRuntime();
-        return runtime.totalMemory() - runtime.freeMemory();
-    }
-
 
 }
