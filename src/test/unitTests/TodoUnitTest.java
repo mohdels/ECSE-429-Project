@@ -10,6 +10,8 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.Random;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -17,17 +19,26 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import java.lang.management.ManagementFactory;
+import com.sun.management.OperatingSystemMXBean;
+
 // Run unit tests in a random order
 @TestMethodOrder(Random.class)
 public class TodoUnitTest {
     private int testId;
+    private JSONObject randomTodo;
     private final String taskTitle = "Title Todo";
-    private final String taskDescription = "Description of todo";
     private final Boolean doneStatus = false;
     private static Process process;
 
     @BeforeAll
     public static void setup() throws Exception {
+        String csvFile = "performance_results.csv";
+        try (FileWriter writer = new FileWriter(csvFile)) {
+            writer.write("operation,numObjects,duration,cpuUsage,memoryUsage\n"); // Write the header line
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // To run the api
         try {
             process = Runtime.getRuntime().exec("java -jar runTodoManagerRestAPI-1.5.5.jar");
@@ -59,33 +70,37 @@ public class TodoUnitTest {
     // Create a todo before each test runs
     @BeforeEach
     public void createToDo() {
-        JSONObject object = new JSONObject();
-        object.put("title", taskTitle);
-        object.put("doneStatus", doneStatus);
-        object.put("description", taskDescription);
+        long startTime = System.currentTimeMillis();
+        randomTodo = RandomDataGenerator.generateTodo();
         Response response = given()
-                .body(object.toString())
+                .body(randomTodo.toString())
                 .when()
                 .post("/todos");
+        long endTime = System.currentTimeMillis();
+        System.out.println("deleteToDo duration: " + (endTime - startTime) + "ms");
 
         assertEquals(201, response.getStatusCode());
-        assertEquals(taskTitle, response.jsonPath().getString("title"));
-        assertEquals(taskDescription, response.jsonPath().getString("description"));
-        assertEquals("false", response.jsonPath().getString("doneStatus"));
+        assertEquals(randomTodo.getString("title"), response.jsonPath().getString("title"));
+        assertEquals(randomTodo.getString("description"), response.jsonPath().getString("description"));
+        assertEquals(String.valueOf(randomTodo.getBoolean("doneStatus")), response.jsonPath().getString("doneStatus"));
 
-        testId = response.jsonPath().getInt("id"); // get the id of the newly created task
+        testId = response.jsonPath().getInt("id");
     }
 
     // deletes the created todo after each test terminates
     @AfterEach
-    public void deleteToDo(){
+    public void deleteToDo() {
+        long startTime = System.currentTimeMillis();
         Response response = given()
                 .pathParam("id", testId)
                 .when()
                 .delete("/todos/{id}");
+        long endTime = System.currentTimeMillis();
+        System.out.println("deleteToDo duration: " + (endTime - startTime) + "ms");
 
         assertEquals(200, response.getStatusCode());
     }
+
 
     // Shutdown the api after all tests run
     @AfterAll
@@ -117,7 +132,7 @@ public class TodoUnitTest {
         List<Map<String, Object>> todos = response.jsonPath().getList("todos");
         boolean found = false;
         for (Map<String, Object> todo : todos) {
-            if (taskTitle.equals(todo.get("title"))) {
+            if (randomTodo.getString("title").equals(todo.get("title"))) {
                 found = true;
                 break;
             }
@@ -136,7 +151,7 @@ public class TodoUnitTest {
                 .get("/todos");
 
         List<String> titles = response.xmlPath().getList("todos.todo.title");
-        boolean found = titles.contains(taskTitle);
+        boolean found = titles.contains(randomTodo.getString("title"));
 
         assertEquals(200, response.getStatusCode());
         assertNotNull(titles);
@@ -256,9 +271,9 @@ public class TodoUnitTest {
                 .get("/todos/{id}");
 
         assertEquals(200, response.getStatusCode());
-        assertEquals(taskTitle, response.jsonPath().getString("todos[0].title"));
-        assertEquals(taskDescription, response.jsonPath().getString("todos[0].description"));
-        assertEquals("false", response.jsonPath().getString("todos[0].doneStatus"));
+        assertEquals(randomTodo.getString("title"), response.jsonPath().getString("todos[0].title"));
+        assertEquals(randomTodo.getString("description"), response.jsonPath().getString("todos[0].description"));
+        assertEquals(String.valueOf(randomTodo.getBoolean("doneStatus")), response.jsonPath().getString("todos[0].doneStatus"));
     }
 
     @Test
@@ -278,28 +293,28 @@ public class TodoUnitTest {
     @Test
     public void testGetTodoWithTitle() {
         Response response = given()
-                .pathParam("taskTitle", taskTitle)
+                .queryParam("title", randomTodo.getString("title"))
                 .when()
-                .get("/todos?title={taskTitle}");
+                .get("/todos");
 
         assertEquals(200, response.getStatusCode());
-        assertEquals(taskTitle, response.jsonPath().getString("todos[0].title"));
-        assertEquals(taskDescription, response.jsonPath().getString("todos[0].description"));
-        assertEquals("false", response.jsonPath().getString("todos[0].doneStatus"));
+        assertEquals(randomTodo.getString("title"), response.jsonPath().getString("todos[0].title"));
+        assertEquals(randomTodo.getString("description"), response.jsonPath().getString("todos[0].description"));
+        assertEquals(String.valueOf(randomTodo.getBoolean("doneStatus")), response.jsonPath().getString("todos[0].doneStatus"));
     }
 
     @Test
     public void testGetTodoWithTitleAndDescription() {
         Response response = given()
-                .pathParam("taskTitle", taskTitle)
-                .pathParam("taskDescription", taskDescription)
+                .queryParam("title", randomTodo.getString("title"))
+                .queryParam("description", randomTodo.getString("description"))
                 .when()
-                .get("/todos?title={taskTitle}&description={taskDescription}");
+                .get("/todos");
 
         assertEquals(200, response.getStatusCode());
-        assertEquals(taskTitle, response.jsonPath().getString("todos[0].title"));
-        assertEquals(taskDescription, response.jsonPath().getString("todos[0].description"));
-        assertEquals("false", response.jsonPath().getString("todos[0].doneStatus"));
+        assertEquals(randomTodo.getString("title"), response.jsonPath().getString("todos[0].title"));
+        assertEquals(randomTodo.getString("description"), response.jsonPath().getString("todos[0].description"));
+        assertEquals(String.valueOf(randomTodo.getBoolean("doneStatus")), response.jsonPath().getString("todos[0].doneStatus"));
     }
 
     @Test
@@ -330,18 +345,38 @@ public class TodoUnitTest {
 
     @Test
     public void testUpdateTodoPost() {
-        JSONObject updatedObject = new JSONObject();
-        updatedObject.put("title", "updated test title - post");
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "performance_results.csv";
 
-        Response responsePost = given()
-                .body(updatedObject.toString())
-                .when()
-                .post("/todos/" + testId);
+        for (int numObjects : objectCounts) {
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = getMemoryUsage();
 
-        assertEquals(200, responsePost.getStatusCode());
-        assertEquals("updated test title - post", responsePost.jsonPath().getString("title"));
-        assertEquals(doneStatus.toString(), responsePost.jsonPath().getString("doneStatus"));
-        assertEquals(taskDescription, responsePost.jsonPath().getString("description"));
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject updatedTodo = RandomDataGenerator.generateTodo();
+                Response responsePost = given()
+                        .body(updatedTodo.toString())
+                        .when()
+                        .post("/todos/" + testId);
+                assertEquals(200, responsePost.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "updateTodoPost",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
     }
 
     @Test
@@ -356,8 +391,8 @@ public class TodoUnitTest {
 
         assertEquals(200, responsePost.getStatusCode());
         assertEquals("updated test description - post", responsePost.jsonPath().getString("description"));
-        assertEquals(taskTitle, responsePost.jsonPath().getString("title"));
-        assertEquals(doneStatus.toString(), responsePost.jsonPath().getString("doneStatus"));
+        assertEquals(randomTodo.getString("title"), responsePost.jsonPath().getString("title"));
+        assertEquals(String.valueOf(randomTodo.getBoolean("doneStatus")), responsePost.jsonPath().getString("doneStatus"));
     }
 
     @Test
@@ -390,26 +425,46 @@ public class TodoUnitTest {
 
         assertEquals(200, responsePut.getStatusCode());
         assertEquals("updated test title - put", responsePut.jsonPath().getString("title"));
-        assertEquals(doneStatus.toString(), responsePut.jsonPath().getString("doneStatus"));
-        assertEquals(taskDescription, responsePut.jsonPath().getString("description"));
+        assertEquals(randomTodo.getString("description"), responsePut.jsonPath().getString("description"));
+        assertEquals(String.valueOf(randomTodo.getBoolean("doneStatus")), responsePut.jsonPath().getString("doneStatus"));
     }
 
     // Bug
     // Test shows actual behavior working: the doneStatus and description fields are reset
     @Test
     public void testUpdateTodoPutPass() {
-        JSONObject updatedObject = new JSONObject();
-        updatedObject.put("title", "updated test title - put");
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "performance_results.csv";
 
-        Response responsePut = given()
-                .body(updatedObject.toString())
-                .when()
-                .put("/todos/" + testId);
+        for (int numObjects : objectCounts) {
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = getMemoryUsage();
 
-        assertEquals(200, responsePut.getStatusCode());
-        assertEquals("updated test title - put", responsePut.jsonPath().getString("title"));
-        assertEquals("false", responsePut.jsonPath().getString("doneStatus"));
-        assertEquals("", responsePut.jsonPath().getString("description"));
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject updatedTodo = RandomDataGenerator.generateTodo();
+                Response responsePut = given()
+                        .body(updatedTodo.toString())
+                        .when()
+                        .put("/todos/" + testId);
+                assertEquals(200, responsePut.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "updateTodoPutPass",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
     }
 
     // Bug
@@ -545,5 +600,112 @@ public class TodoUnitTest {
         assertEquals(expectedMessage, response.jsonPath().getString("errorMessages"));
 
     }
+
+    @Test
+    public void testCreateMultipleTodos() {
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "performance_results.csv";
+
+        for (int numObjects : objectCounts) {
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = getMemoryUsage();
+
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject todo = RandomDataGenerator.generateTodo();
+                Response response = given()
+                        .body(todo.toString())
+                        .when()
+                        .post("/todos");
+                assertEquals(201, response.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "createMultipleTodos",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
+    }
+
+    @Test
+    public void testDeleteMultipleTodos() {
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "performance_results.csv";
+
+        for (int numObjects : objectCounts) {
+            int[] createdIds = new int[numObjects];
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject todo = RandomDataGenerator.generateTodo();
+                Response response = given()
+                        .body(todo.toString())
+                        .when()
+                        .post("/todos");
+                assertEquals(201, response.getStatusCode());
+                createdIds[i] = response.jsonPath().getInt("id");
+            }
+
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = getMemoryUsage();
+
+            for (int id : createdIds) {
+                Response response = given()
+                        .pathParam("id", id)
+                        .when()
+                        .delete("/todos/{id}");
+                assertEquals(200, response.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "deleteMultipleTodos",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
+    }
+
+    // Utility methods
+
+    public double getAverageCpuUsage(long startTime, long endTime) {
+        OperatingSystemMXBean osBean = ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+        double totalCpu = 0;
+        int samples = 0;
+
+        while (System.currentTimeMillis() < endTime) {
+            totalCpu += osBean.getSystemCpuLoad();
+            samples++;
+            try {
+                Thread.sleep(10); // Sampling interval (10ms)
+            } catch (InterruptedException ignored) {}
+        }
+
+        return (samples > 0) ? (totalCpu / samples) * 100 : 0.0;
+    }
+
+
+    public long getMemoryUsage() {
+        Runtime runtime = Runtime.getRuntime();
+        return runtime.totalMemory() - runtime.freeMemory();
+    }
+
 
 }
