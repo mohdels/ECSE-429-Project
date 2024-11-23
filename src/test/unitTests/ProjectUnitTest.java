@@ -1,6 +1,5 @@
 package test.unitTests;
 
-import com.sun.management.OperatingSystemMXBean;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
 import static java.lang.Thread.sleep;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.MethodOrderer.Random;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.management.ManagementFactory;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -27,10 +25,7 @@ public class ProjectUnitTest {
     private int testId;
     private JSONObject randomProject;
     private final String projectTitle = "Introduction to Software Validation";
-    private final String projectDescription = "Beginner course";
     private final String partialProjectDescription = "Beginner";
-    private final Boolean completed = false;
-    private final Boolean active = false;
     private static Process process;
 
     @BeforeAll
@@ -462,7 +457,7 @@ public class ProjectUnitTest {
                 Response responsePost = given()
                         .body(updatedProject.toString())
                         .when()
-                        .post("/projects/" + testId); // Assuming testId refers to an existing project
+                        .post("/projects/" + testId);
                 assertEquals(200, responsePost.getStatusCode());
             }
 
@@ -515,7 +510,7 @@ public class ProjectUnitTest {
                 Response responsePut = given()
                         .body(updatedProject.toString())
                         .when()
-                        .put("/projects/" + testId); // Assuming testId refers to an existing project
+                        .put("/projects/" + testId);
                 assertEquals(200, responsePut.getStatusCode());
             }
 

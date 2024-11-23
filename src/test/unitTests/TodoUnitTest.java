@@ -19,9 +19,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import java.lang.management.ManagementFactory;
-import com.sun.management.OperatingSystemMXBean;
-
 // Run unit tests in a random order
 @TestMethodOrder(Random.class)
 public class TodoUnitTest {
