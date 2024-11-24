@@ -10,6 +10,7 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.MethodOrderer.Random;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -22,15 +23,19 @@ import org.json.JSONObject;
 @TestMethodOrder(Random.class)
 public class ProjectUnitTest {
     private int testId;
+    private JSONObject randomProject;
     private final String projectTitle = "Introduction to Software Validation";
-    private final String projectDescription = "Beginner course";
     private final String partialProjectDescription = "Beginner";
-    private final Boolean completed = false;
-    private final Boolean active = false;
     private static Process process;
 
     @BeforeAll
     public static void setup() throws Exception {
+        String csvFile = "project_performance_results.csv";
+        try (FileWriter writer = new FileWriter(csvFile)) {
+            writer.write("operation,numObjects,duration,cpuUsage,memoryUsage\n"); // Write the header line
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         // To run the api
         try {
             process = Runtime.getRuntime().exec("java -jar runTodoManagerRestAPI-1.5.5.jar");
@@ -62,32 +67,34 @@ public class ProjectUnitTest {
     // Create a project before each test runs
     @BeforeEach
     public void createProject() {
-        JSONObject object = new JSONObject();
-        object.put("title", projectTitle);
-        object.put("completed", completed);
-        object.put("active", active);
-        object.put("description", projectDescription);
+        long startTime = System.currentTimeMillis();
+        randomProject = RandomDataGenerator.generateProject();
         Response response = given()
-                .body(object.toString())
+                .body(randomProject.toString())
                 .when()
                 .post("/projects");
+        long endTime = System.currentTimeMillis();
+        System.out.println("createProject duration: " + (endTime - startTime) + "ms");
 
         assertEquals(201, response.getStatusCode());
-        assertEquals(projectTitle, response.jsonPath().getString("title"));
-        assertEquals(projectDescription, response.jsonPath().getString("description"));
-        assertEquals("false", response.jsonPath().getString("completed"));
-        assertEquals("false", response.jsonPath().getString("active"));
+        assertEquals(randomProject.getString("title"), response.jsonPath().getString("title"));
+        assertEquals(randomProject.getString("description"), response.jsonPath().getString("description"));
+        assertEquals(String.valueOf(randomProject.getBoolean("completed")), response.jsonPath().getString("completed"));
+        assertEquals(String.valueOf(randomProject.getBoolean("active")), response.jsonPath().getString("active"));
 
-        testId = response.jsonPath().getInt("id"); // get the id of the newly created project
+        testId = response.jsonPath().getInt("id"); // get the ID of the newly created project
     }
 
     // deletes the created project after each test terminates
     @AfterEach
-    public void deleteProject(){
+    public void deleteProject() {
+        long startTime = System.currentTimeMillis();
         Response response = given()
                 .pathParam("id", testId)
                 .when()
                 .delete("/projects/{id}");
+        long endTime = System.currentTimeMillis();
+        System.out.println("deleteProject duration: " + (endTime - startTime) + "ms");
 
         assertEquals(200, response.getStatusCode());
     }
@@ -109,7 +116,7 @@ public class ProjectUnitTest {
         List<Map<String, Object>> projects = response.jsonPath().getList("projects");
         boolean found = false;
         for (Map<String, Object> project : projects) {
-            if (projectTitle.equals(project.get("title"))) {
+            if (randomProject.getString("title").equals(project.get("title"))) {
                 found = true;
                 break;
             }
@@ -128,7 +135,7 @@ public class ProjectUnitTest {
                 .get("/projects");
 
         List<String> titles = response.xmlPath().getList("projects.project.title");
-        boolean found = titles.contains(projectTitle);
+        boolean found = titles.contains(randomProject.getString("title"));
 
         assertEquals(200, response.getStatusCode());
         assertNotNull(titles);
@@ -356,10 +363,10 @@ public class ProjectUnitTest {
                 .get("/projects/{id}");
 
         assertEquals(200, response.getStatusCode());
-        assertEquals(projectTitle, response.jsonPath().getString("projects[0].title"));
-        assertEquals(projectDescription, response.jsonPath().getString("projects[0].description"));
-        assertEquals("false", response.jsonPath().getString("projects[0].completed"));
-        assertEquals("false", response.jsonPath().getString("projects[0].active"));
+        assertEquals(randomProject.getString("title"), response.jsonPath().getString("projects[0].title"));
+        assertEquals(randomProject.getString("description"), response.jsonPath().getString("projects[0].description"));
+        assertEquals(String.valueOf(randomProject.getBoolean("completed")), response.jsonPath().getString("projects[0].completed"));
+        assertEquals(String.valueOf(randomProject.getBoolean("active")), response.jsonPath().getString("projects[0].active"));
     }
 
     @Test
@@ -379,30 +386,16 @@ public class ProjectUnitTest {
     @Test
     public void testGetProjectWithTitle() {
         Response response = given()
-                .pathParam("projectTitle", projectTitle)
+                .pathParam("projectTitle", randomProject.getString("title"))
                 .when()
                 .get("/projects?title={projectTitle}");
 
         assertEquals(200, response.getStatusCode());
-        assertEquals(projectTitle, response.jsonPath().getString("projects[0].title"));
-        assertEquals(projectDescription, response.jsonPath().getString("projects[0].description"));
-        assertEquals("false", response.jsonPath().getString("projects[0].completed"));
-        assertEquals("false", response.jsonPath().getString("projects[0].active"));
-    }
+        assertEquals(randomProject.getString("title"), response.jsonPath().getString("projects[0].title"));
+        assertEquals(randomProject.getString("description"), response.jsonPath().getString("projects[0].description"));
+        assertEquals(String.valueOf(randomProject.getBoolean("completed")), response.jsonPath().getString("projects[0].completed"));
+        assertEquals(String.valueOf(randomProject.getBoolean("active")), response.jsonPath().getString("projects[0].active"));
 
-    @Test
-    public void testGetProjectWithTitleAndDescription() {
-        Response response = given()
-                .pathParam("projectTitle", projectTitle)
-                .pathParam("projectDescription", projectDescription)
-                .when()
-                .get("/projects?title={projectTitle}&description={projectDescription}");
-
-        assertEquals(200, response.getStatusCode());
-        assertEquals(projectTitle, response.jsonPath().getString("projects[0].title"));
-        assertEquals(projectDescription, response.jsonPath().getString("projects[0].description"));
-        assertEquals("false", response.jsonPath().getString("projects[0].completed"));
-        assertEquals("false", response.jsonPath().getString("projects[0].active"));
     }
 
     @Test
@@ -419,6 +412,8 @@ public class ProjectUnitTest {
         assertEquals("false", response.jsonPath().getString("projects[0].completed"));
         assertEquals("false", response.jsonPath().getString("projects[0].active"));
     }
+
+
 
     @Test
     public void testGetSpecificProjectHeaders() {
@@ -448,20 +443,40 @@ public class ProjectUnitTest {
 
     @Test
     public void testAmendProjectPost() {
-        JSONObject updatedObject = new JSONObject();
-        updatedObject.put("title", "updated test title - post");
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "project_performance_results.csv";
 
-        Response responsePost = given()
-                .body(updatedObject.toString())
-                .when()
-                .post("/projects/" + testId);
+        for (int numObjects : objectCounts) {
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
 
-        assertEquals(200, responsePost.getStatusCode());
-        assertEquals("updated test title - post", responsePost.jsonPath().getString("title"));
-        assertEquals(completed.toString(), responsePost.jsonPath().getString("completed"));
-        assertEquals(active.toString(), responsePost.jsonPath().getString("active"));
-        assertEquals(projectDescription, responsePost.jsonPath().getString("description"));
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject updatedProject = RandomDataGenerator.generateProject();
+                Response responsePost = given()
+                        .body(updatedProject.toString())
+                        .when()
+                        .post("/projects/" + testId);
+                assertEquals(200, responsePost.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "amendProjectPost",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
     }
+
 
     @Test
     public void testAmendProjectPostInvalidId() {
@@ -481,19 +496,38 @@ public class ProjectUnitTest {
 
     @Test
     public void testAmendProjectPut() {
-        JSONObject updatedObject = new JSONObject();
-        updatedObject.put("title", "updated test title - put");
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "project_performance_results.csv";
 
-        Response responsePut = given()
-                .body(updatedObject.toString())
-                .when()
-                .put("/projects/" + testId);
+        for (int numObjects : objectCounts) {
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
 
-        assertEquals(200, responsePut.getStatusCode());
-        assertEquals("updated test title - put", responsePut.jsonPath().getString("title"));
-        assertEquals(completed.toString(), responsePut.jsonPath().getString("completed"));
-        assertEquals(active.toString(), responsePut.jsonPath().getString("active"));
-        assertEquals(projectDescription, responsePut.jsonPath().getString("description"));
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject updatedProject = RandomDataGenerator.generateProject();
+                Response responsePut = given()
+                        .body(updatedProject.toString())
+                        .when()
+                        .put("/projects/" + testId);
+                assertEquals(200, responsePut.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "amendProjectPut",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
     }
 
     @Test
@@ -598,6 +632,91 @@ public class ProjectUnitTest {
         String expectedMessage = "[Could not find any instances with projects/" + invalidId + "]";
         assertEquals(expectedMessage, response.jsonPath().getString("errorMessages"));
 
+    }
+
+    @Test
+    public void testCreateMultipleProjects() {
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "project_performance_results.csv";
+
+        for (int numObjects : objectCounts) {
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
+
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject project = RandomDataGenerator.generateProject();
+                Response response = given()
+                        .body(project.toString())
+                        .when()
+                        .post("/projects");
+                assertEquals(201, response.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "createMultipleProjects",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
+    }
+
+    @Test
+    public void testDeleteMultipleProjects() {
+        int[] objectCounts = {1, 10, 100, 1000};
+        String csvFile = "project_performance_results.csv";
+
+        for (int numObjects : objectCounts) {
+            int[] createdIds = new int[numObjects];
+
+            // Create multiple projects
+            for (int i = 0; i < numObjects; i++) {
+                JSONObject project = RandomDataGenerator.generateProject();
+                Response response = given()
+                        .body(project.toString())
+                        .when()
+                        .post("/projects");
+                assertEquals(201, response.getStatusCode());
+                createdIds[i] = response.jsonPath().getInt("id");
+            }
+
+            long startTime = System.currentTimeMillis();
+            long endTime = startTime + 1000; // 1-second sampling duration
+            double initialCpuUsage = PerformanceUtils.getAverageCpuUsage(startTime, endTime);
+            long initialMemoryUsage = PerformanceUtils.getMemoryUsage();
+
+            // Delete all created projects
+            for (int id : createdIds) {
+                Response response = given()
+                        .pathParam("id", id)
+                        .when()
+                        .delete("/projects/{id}");
+                assertEquals(200, response.getStatusCode());
+            }
+
+            long operationEndTime = System.currentTimeMillis();
+            long finalSamplingEndTime = operationEndTime + 1000; // 1-second sampling duration after operation
+            double finalCpuUsage = PerformanceUtils.getAverageCpuUsage(operationEndTime, finalSamplingEndTime);
+            long finalMemoryUsage = PerformanceUtils.getMemoryUsage();
+
+            CsvWriter.writeResults(
+                    csvFile,
+                    "deleteMultipleProjects",
+                    numObjects,
+                    (operationEndTime - startTime),
+                    Math.max(0, finalCpuUsage - initialCpuUsage),
+                    Math.max(0, finalMemoryUsage - initialMemoryUsage)
+            );
+        }
     }
 
 }

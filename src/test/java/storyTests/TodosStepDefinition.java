@@ -1,4 +1,4 @@
-package test.storyTests;
+package test.java.storyTests;
 
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.AfterAll;
